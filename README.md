@@ -189,4 +189,5 @@ Feedstock Maintainers
 =====================
 
 * [@SeaOtocinclus](https://github.com/SeaOtocinclus/)
+* [@jeongseok-meta](https://github.com/jeongseok-meta/)
 
