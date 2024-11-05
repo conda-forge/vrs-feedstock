@@ -13,7 +13,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '17'
+- '18'
 fmt:
 - '11'
 libboost_devel:
@@ -26,10 +26,12 @@ lz4_c:
 - 1.9.3
 macos_machine:
 - arm64-apple-darwin20.0.0
+portaudio:
+- '19.7'
 qt:
-- '5.15'
+- 5.15.8
 qt_main:
-- '5.15'
+- 5.15.8
 target_platform:
 - osx-arm64
 zlib:

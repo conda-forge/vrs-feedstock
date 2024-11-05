@@ -16,10 +16,12 @@ libpng:
 - '1.6'
 lz4_c:
 - 1.9.3
+portaudio:
+- '19.7'
 qt:
-- '5.15'
+- 5.15.8
 qt_main:
-- '5.15'
+- 5.15.8
 target_platform:
 - win-64
 zlib:
