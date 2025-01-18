@@ -15,13 +15,11 @@ libjpeg_turbo:
 libpng:
 - '1.6'
 lz4_c:
-- 1.9.3
-portaudio:
-- '19.7'
+- '1.10'
 qt:
-- 5.15.8
+- '5.15'
 qt_main:
-- 5.15.8
+- '5.15'
 target_platform:
 - win-64
 zlib:
