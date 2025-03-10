@@ -24,12 +24,18 @@ libpng:
 - '1.6'
 lz4_c:
 - '1.10'
+mesalib:
+- '25.0'
+portaudio:
+- '19.7'
 qt:
 - '5.15'
 qt_main:
 - '5.15'
 target_platform:
 - linux-aarch64
+xxhash:
+- 0.8.3
 zlib:
 - '1'
 zstd:
