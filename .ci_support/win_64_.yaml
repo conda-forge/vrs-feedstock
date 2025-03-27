@@ -7,7 +7,7 @@ channel_targets:
 cxx_compiler:
 - vs2019
 fmt:
-- '11'
+- '11.1'
 libboost_devel:
 - '1.86'
 libjpeg_turbo:
