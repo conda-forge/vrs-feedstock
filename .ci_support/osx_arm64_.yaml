@@ -13,11 +13,11 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '18'
+- '19'
 fmt:
 - '11.2'
 libboost_devel:
-- '1.86'
+- '1.88'
 libjpeg_turbo:
 - '3'
 libpng:

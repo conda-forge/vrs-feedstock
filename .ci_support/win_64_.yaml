@@ -9,7 +9,7 @@ cxx_compiler:
 fmt:
 - '11.2'
 libboost_devel:
-- '1.86'
+- '1.88'
 libjpeg_turbo:
 - '3'
 libpng:
