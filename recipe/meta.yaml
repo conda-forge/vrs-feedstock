@@ -10,7 +10,7 @@ source:
     sha256: cd0f2a043a8ee2386c4bec61987e9c25f8de748f4d63bbe34a0d15115d858a98
 
 build:
-  number: 7
+  number: 8
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -20,8 +20,8 @@ requirements:
     - {{ stdlib('c') }}
     - cmake
     - ninja  # [not win]
-    - libboost-devel
   host:
+    - libboost-devel
     - fmt
     - libjpeg-turbo
     - lz4
