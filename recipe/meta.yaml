@@ -37,6 +37,9 @@ requirements:
     - libpng
     - lz4-c
     - zstd
+    # Newly introduced dependencies for v1.4.0
+    - eigen
+    - libopus
 
 test:
   commands:
