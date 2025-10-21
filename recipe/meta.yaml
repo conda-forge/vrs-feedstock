@@ -20,8 +20,8 @@ requirements:
     - {{ stdlib('c') }}
     - cmake
     - ninja  # [not win]
-  host:
     - libboost-devel
+  host:
     - fmt
     - libjpeg-turbo
     - lz4
@@ -35,7 +35,6 @@ requirements:
     - libpng
     - lz4-c
     - zstd
-    - libboost
 
 test:
   commands:
