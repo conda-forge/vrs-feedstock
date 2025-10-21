@@ -1,5 +1,7 @@
 @echo on
 
+git config --system core.longpaths true
+
 cmake %SRC_DIR% ^
   -B build ^
   -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
