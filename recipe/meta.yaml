@@ -33,14 +33,13 @@ requirements:
     - qt
     - qt-main
     - mesalib  # [linux]
-    # dependencies to be added for RUN step
     - libpng
     - lz4-c
     - zstd
     # Newly introduced dependencies for v1.4.0
-    - eigen
-    - libopus
-    - ffmpeg {{ ffmpeg }} lgpl_*
+    - eigen # required by ocean
+    - libopus # required for OPUS audio codec
+    - ffmpeg {{ ffmpeg }} lgpl_* # required for Aria Gen2 Image streams support
 
 
 test:

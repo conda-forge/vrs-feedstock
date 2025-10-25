@@ -8,9 +8,8 @@ cmake %SRC_DIR% ^
   -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
   -DBUILD_SHARED_LIBS=OFF ^
   -DUNIT_TESTS=OFF ^
-  -DBUILD_SAMPLES=OFF ^
-  @REM -DBUILD_WITH_XPRS:BOOL=ON ^ # Only supported on Window for the moment
-  @REM -DFFmpeg_ROOT=%PREFIX%
+  -DBUILD_SAMPLES=OFF
+
 if errorlevel 1 exit 1
 
 cmake --build build --parallel --config Release
