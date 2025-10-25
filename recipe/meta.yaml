@@ -40,7 +40,8 @@ requirements:
     # Newly introduced dependencies for v1.4.0
     - eigen
     - libopus
-    - ffmpeg # Find later on how to constraint to LGPL version
+    - ffmpeg {{ ffmpeg }} lgpl_*
+
 
 test:
   commands:
