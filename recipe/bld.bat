@@ -10,7 +10,7 @@ cmake %SRC_DIR% ^
   -DUNIT_TESTS=OFF ^
   -DBUILD_SAMPLES=OFF ^
   -DBUILD_WITH_XPRS:BOOL=ON ^
-  -DFFmpeg_ROOT=%CONDA_PREFIX%
+  -DFFmpeg_ROOT=%PREFIX%
 if errorlevel 1 exit 1
 
 cmake --build build --parallel --config Release

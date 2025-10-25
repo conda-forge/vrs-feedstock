@@ -15,7 +15,7 @@ cmake $SRC_DIR \
   -DUNIT_TESTS=OFF \
   -DBUILD_SAMPLES=OFF \
   -DBUILD_WITH_XPRS:BOOL=ON \
-  -DFFmpeg_ROOT=$CONDA_PREFIX
+  -DFFmpeg_ROOT=$PREFIX
 
 cmake --build build --parallel
 
