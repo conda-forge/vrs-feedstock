@@ -1,2 +1,10 @@
-c_stdlib_version:  # [osx and x86_64]
+c_stdlib_version:
   - '10.15'  # [osx and x86_64]
+  - '10.15'   # [osx and arm64]
+
+MACOSX_DEPLOYMENT_TARGET:
+  - '10.15'  # [osx and x86_64]
+  - '10.15'   # [osx and arm64]
+
+fmt:
+  - '12.1'

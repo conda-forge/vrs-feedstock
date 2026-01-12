@@ -15,7 +15,7 @@ docker_image:
 ffmpeg:
 - '8'
 fmt:
-- '12.0'
+- '12.1'
 libboost_devel:
 - '1.86'
 libjpeg_turbo:
