@@ -1,2 +1,7 @@
-c_stdlib_version:  # [osx and x86_64]
-  - '10.15'  # [osx and x86_64]
+# Require macOS 13.0+ for kCVPixelFormatType_444YpCbCr8BiPlanarVideoRange
+# and kCVPixelFormatType_444YpCbCr8BiPlanarFullRange constants in CoreVideo framework
+c_stdlib_version:  # [osx]
+  - '13.0'  # [osx]
+
+MACOSX_DEPLOYMENT_TARGET:  # [osx]
+  - '13.0'  # [osx]

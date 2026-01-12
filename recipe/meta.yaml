@@ -9,7 +9,7 @@ source:
   # - url: https://github.com/facebookresearch/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
   #   sha256: cd0f2a043a8ee2386c4bec61987e9c25f8de748f4d63bbe34a0d15115d858a98
   git_url: https://github.com/facebookresearch/vrs.git
-  git_rev: 9ae24b74a7a5535dc1b3ad63018c0796bf802f65
+  git_rev: 5860db62901444a182e8a8514b9fc2d30d3fb492
 
 build:
   number: 8
@@ -26,7 +26,6 @@ requirements:
     - libboost-devel
     - fmt
     - libjpeg-turbo
-    - lz4
     - portaudio
     - xxhash
     - zlib
