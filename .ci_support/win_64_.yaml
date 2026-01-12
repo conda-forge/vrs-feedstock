@@ -7,9 +7,9 @@ channel_targets:
 cxx_compiler:
 - vs2022
 ffmpeg:
-- '7'
+- '8'
 fmt:
-- '11.2'
+- '12.0'
 libboost_devel:
 - '1.86'
 libjpeg_turbo:
