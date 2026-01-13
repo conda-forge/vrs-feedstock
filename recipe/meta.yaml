@@ -12,7 +12,7 @@ source:
   # git_rev: 5860db62901444a182e8a8514b9fc2d30d3fb492
   # temporary test
   git_url: https://github.com/SeaOtocinclus/vrs.git
-  git_rev: 5c4f724041a9f0624e3d75ff0b0d1db9bfee1d3e
+  git_rev: 506e8e297e0e7abe7f15f2c261952abb4bf4f1df
 
 build:
   number: 9
