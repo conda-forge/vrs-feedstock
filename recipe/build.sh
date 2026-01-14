@@ -13,7 +13,9 @@ cmake $SRC_DIR \
   -B build \
   -DCMAKE_BUILD_TYPE=Release \
   -DUNIT_TESTS=OFF \
-  -DBUILD_SAMPLES=OFF
+  -DBUILD_SAMPLES=OFF \
+  -DBUILD_WITH_XPRS:BOOL=ON \
+  -DFFmpeg_ROOT=$PREFIX
 
 cmake --build build --parallel
 

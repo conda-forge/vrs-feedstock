@@ -1,5 +1,7 @@
 @echo on
 
+git config --system core.longpaths true
+
 cmake %SRC_DIR% ^
   -B build ^
   -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
@@ -7,6 +9,7 @@ cmake %SRC_DIR% ^
   -DBUILD_SHARED_LIBS=OFF ^
   -DUNIT_TESTS=OFF ^
   -DBUILD_SAMPLES=OFF
+
 if errorlevel 1 exit 1
 
 cmake --build build --parallel --config Release
