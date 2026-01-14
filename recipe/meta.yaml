@@ -8,11 +8,8 @@ package:
 source:
   # - url: https://github.com/facebookresearch/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
   #   sha256: cd0f2a043a8ee2386c4bec61987e9c25f8de748f4d63bbe34a0d15115d858a98
-  # git_url: https://github.com/facebookresearch/vrs.git
-  # git_rev: 5860db62901444a182e8a8514b9fc2d30d3fb492
-  # temporary test
-  git_url: https://github.com/SeaOtocinclus/vrs.git
-  git_rev: 506e8e297e0e7abe7f15f2c261952abb4bf4f1df
+  git_url: https://github.com/facebookresearch/vrs.git
+  git_rev: 89d9ec5f1867cb139d06eb7d297ef1206ad35478
 
 build:
   number: 9
