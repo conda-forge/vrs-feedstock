@@ -12,7 +12,7 @@ source:
   git_rev: 89d9ec5f1867cb139d06eb7d297ef1206ad35478
 
 build:
-  number: 9
+  number: 10
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
