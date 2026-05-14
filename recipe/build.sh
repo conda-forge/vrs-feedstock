@@ -7,6 +7,11 @@ if [[ "${target_platform}" == osx-* ]]; then
   CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
 
+if [[ "${target_platform}" == "linux-aarch64" ]]; then
+  # Ocean's NEON code currently relies on these GCC vector conversions.
+  CXXFLAGS="${CXXFLAGS} -flax-vector-conversions"
+fi
+
 cmake $SRC_DIR \
   ${CMAKE_ARGS} \
   -G Ninja \
