@@ -1,0 +1,140 @@
+diff --git a/cmake/FindOcean.cmake b/cmake/FindOcean.cmake
+index a5c5b65..b68085d 100644
+--- a/cmake/FindOcean.cmake
++++ b/cmake/FindOcean.cmake
+@@ -20,6 +20,17 @@ if(Ocean_FOUND)
+   return()
+ endif()
+ 
++set(_Ocean_INSTALLED_TARGETS "${CMAKE_CURRENT_LIST_DIR}/../../Ocean/FindOceanTargets.cmake")
++if(EXISTS "${_Ocean_INSTALLED_TARGETS}")
++  include("${_Ocean_INSTALLED_TARGETS}")
++  if(TARGET Ocean::Ocean)
++    set(Ocean_LIBRARIES Ocean::Ocean)
++    set(Ocean_FOUND TRUE)
++    return()
++  endif()
++endif()
++unset(_Ocean_INSTALLED_TARGETS)
++
+ # --------------------------
+ # 0) Standard install dirs
+ include(GNUInstallDirs)
+@@ -60,6 +71,7 @@ target_link_libraries(ocean INTERFACE
+   ocean_math
+ )
+ add_library(Ocean::Ocean ALIAS ocean)
++set_target_properties(ocean PROPERTIES EXPORT_NAME Ocean)
+ 
+ # --------------------------
+ # 4) Installation
+diff --git a/cmake/FindRapidjsonLib.cmake b/cmake/FindRapidjsonLib.cmake
+index 8a943a8..431f650 100644
+--- a/cmake/FindRapidjsonLib.cmake
++++ b/cmake/FindRapidjsonLib.cmake
+@@ -12,32 +12,31 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-# The package version of rapidjson provided by apt on Linux or brew on Mac date from August 2016,
+-# despite being the last official version (v1.1.0), and don't include important fixes.
+-# So we get the code from GitHub at a known working state.
+-find_path(RAPIDJSON_INSTALL NAMES rapidjson/rapidjson.h)
+-if (RAPIDJSON_INSTALL)
+-  message(WARNING "Found RapidJson at ${RAPIDJSON_INSTALL} It might be used instead "
+-    "of VRS' version, and cause builds errors because the code is too old.")
+-endif()
++find_package(RapidJSON CONFIG QUIET)
+ 
+-set(RAPIDJSON_DIR "${EXTERNAL_DEPENDENCIES_DIR}/rapidjson")
+-set(RAPIDJSON_INCLUDE_DIR "${RAPIDJSON_DIR}/include")
+-set(RAPIDJSON_INCLUDE_FILE "${RAPIDJSON_INCLUDE_DIR}/rapidjson/rapidjson.h")
++if(TARGET RapidJSON::rapidjson AND NOT TARGET rapidjson::rapidjson)
++  add_library(rapidjson::rapidjson INTERFACE IMPORTED)
++  set_target_properties(rapidjson::rapidjson PROPERTIES
++    INTERFACE_LINK_LIBRARIES RapidJSON::rapidjson
++  )
++elseif(TARGET rapidjson AND NOT TARGET rapidjson::rapidjson)
++  add_library(rapidjson::rapidjson INTERFACE IMPORTED)
++  set_target_properties(rapidjson::rapidjson PROPERTIES
++    INTERFACE_LINK_LIBRARIES rapidjson
++  )
++elseif(NOT TARGET rapidjson::rapidjson)
++  find_path(RAPIDJSON_INCLUDE_DIR NAMES rapidjson/rapidjson.h)
++  if(NOT RAPIDJSON_INCLUDE_DIR)
++    message(FATAL_ERROR "Could not find rapidjson headers")
++  endif()
+ 
+-if (NOT EXISTS "${RAPIDJSON_INCLUDE_FILE}")
+-  execute_process(COMMAND git clone https://github.com/Tencent/rapidjson.git "${RAPIDJSON_DIR}")
+-endif()
+-execute_process(COMMAND cd "${RAPIDJSON_DIR}" && git -f checkout a95e013b97ca6523f32da23f5095fcc9dd6067e5)
+-if (NOT EXISTS "${RAPIDJSON_INCLUDE_FILE}")
+-  message(FATAL_ERROR "Could not setup rapidjson external dependency at ${RAPIDJSON_DIR}")
++  add_library(rapidjson::rapidjson INTERFACE IMPORTED)
++  set_target_properties(
++    rapidjson::rapidjson PROPERTIES
++    INTERFACE_INCLUDE_DIRECTORIES "${RAPIDJSON_INCLUDE_DIR}"
++  )
+ endif()
+ 
+-add_library(rapidjson::rapidjson INTERFACE IMPORTED)
+-set_target_properties(
+-  rapidjson::rapidjson PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${RAPIDJSON_INCLUDE_DIR}"
+-)
+-add_dependencies(rapidjson::rapidjson rapidjson)
+-
+-message(STATUS "Found RapidJson: ${RAPIDJSON_DIR}")
++if(RAPIDJSON_INCLUDE_DIR)
++  message(STATUS "Found RapidJson: ${RAPIDJSON_INCLUDE_DIR}")
++endif()
+diff --git a/cmake/LibrariesSetup.cmake b/cmake/LibrariesSetup.cmake
+index a38b018..c7b94b8 100644
+--- a/cmake/LibrariesSetup.cmake
++++ b/cmake/LibrariesSetup.cmake
+@@ -17,6 +17,20 @@ if (EXISTS "$ENV{HOME}/homebrew")
+   list(APPEND CMAKE_FIND_ROOT_PATH "$ENV{HOME}/homebrew")
+ endif()
+ 
++if(NOT DEFINED TARGET_LINUX)
++  set(TARGET_LINUX FALSE)
++  if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
++    set(TARGET_LINUX TRUE)
++  endif()
++endif()
++
++if(NOT DEFINED TARGET_MACOS)
++  set(TARGET_MACOS FALSE)
++  if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
++    set(TARGET_MACOS TRUE)
++  endif()
++endif()
++
+ find_package(Boost REQUIRED)
+ 
+ find_package(Threads REQUIRED)
+@@ -34,7 +48,7 @@ find_package(Opus)
+ find_package(Ocean)
+ 
+ # Optional dependencies for XPRS decoding: only on Unix-like platforms (Linux & macOS)
+-if (BUILD_WITH_XPRS AND (TARGET_LINUX OR TARGET_MACOS))
++if ((BUILD_WITH_XPRS OR NOT DEFINED BUILD_WITH_XPRS) AND (TARGET_LINUX OR TARGET_MACOS))
+   find_package(FFmpeg)
+ endif()
+ 
+diff --git a/vrs/vrslibConfig.cmake.in b/vrs/vrslibConfig.cmake.in
+index 4253080..0aa4b15 100644
+--- a/vrs/vrslibConfig.cmake.in
++++ b/vrs/vrslibConfig.cmake.in
+@@ -14,8 +14,9 @@
+ 
+ @PACKAGE_INIT@
+ set(PACKAGE_VERSION "1.0")
+-include("${CMAKE_CURRENT_LIST_DIR}/vrslibTargets.cmake")
+ 
+ # Library setup
+ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+ include(${CMAKE_CURRENT_LIST_DIR}/cmake/LibrariesSetup.cmake)
++
++include("${CMAKE_CURRENT_LIST_DIR}/vrslibTargets.cmake")

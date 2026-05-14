@@ -10,9 +10,11 @@ source:
   #   sha256: cd0f2a043a8ee2386c4bec61987e9c25f8de748f4d63bbe34a0d15115d858a98
   git_url: https://github.com/facebookresearch/vrs.git
   git_rev: 89d9ec5f1867cb139d06eb7d297ef1206ad35478
+  patches:
+    - patches/0001-use-conda-deps-in-cmake-config.patch
 
 build:
-  number: 10
+  number: 11
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -24,6 +26,7 @@ requirements:
     - ninja  # [not win]
   host:
     - libboost-devel
+    - rapidjson
     - fmt
     - libjpeg-turbo
     - portaudio
@@ -39,6 +42,19 @@ requirements:
     - eigen # required by ocean
     - libopus # required for OPUS audio codec
     - ffmpeg {{ ffmpeg }} lgpl_* # required for Aria Gen2 Image streams support
+  run:
+    # The installed vrslib CMake config resolves these dependency targets for consumers.
+    - libboost-devel
+    - rapidjson
+    - fmt
+    - libjpeg-turbo
+    - xxhash
+    - libpng
+    - lz4-c
+    - zstd
+    - eigen
+    - libopus
+    - ffmpeg {{ ffmpeg }} lgpl_*
 
 
 test:
