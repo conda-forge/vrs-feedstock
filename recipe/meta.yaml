@@ -54,7 +54,7 @@ requirements:
     - zstd
     - eigen
     - libopus
-    - ffmpeg {{ ffmpeg }} lgpl_*
+    - ffmpeg {{ ffmpeg }}
 
 
 test:
