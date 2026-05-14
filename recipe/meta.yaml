@@ -49,6 +49,7 @@ requirements:
     - fmt
     - libjpeg-turbo
     - xxhash
+    - zlib
     - libpng
     - lz4-c
     - zstd
