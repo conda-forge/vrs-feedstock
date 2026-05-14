@@ -43,10 +43,16 @@ requirements:
 
 test:
   commands:
-    - test -f $PREFIX/bin/vrsplayer  # [not win]
-    - test -f $PREFIX/bin/vrs  # [not win]
-    - if not exist %LIBRARY_PREFIX%\bin\vrsplayer.exe (exit 1)  # [win]
-    - if not exist %LIBRARY_PREFIX%\bin\vrs.exe (exit 1)  # [win]
+    - bash run_test.sh  # [unix]
+    - call run_test.bat  # [win]
+  requires:
+    - {{ compiler('cxx') }}
+    - cmake
+    - ninja
+  files:
+    - run_test.sh
+    - run_test.bat
+    - tests/
 
 about:
   home: https://github.com/facebookresearch/vrs
