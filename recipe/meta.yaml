@@ -14,7 +14,7 @@ source:
     - patches/0001-use-conda-deps-in-cmake-config.patch
 
 build:
-  number: 11
+  number: 12
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -34,6 +34,7 @@ requirements:
     - zlib
     - qt
     - qt-main
+    - libgl-devel  # [linux]
     - mesalib  # [linux]
     - libpng
     - lz4-c
