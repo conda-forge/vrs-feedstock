@@ -1,0 +1,100 @@
+schema_version: 1
+
+context:
+  version: "1.4.0"
+
+package:
+  name: vrs
+  version: ${{ version }}
+
+source:
+  # Retain the revision pinned by the v0 recipe rather than changing source content during migration.
+  git: https://github.com/facebookresearch/vrs.git
+  rev: 89d9ec5f1867cb139d06eb7d297ef1206ad35478
+  patches:
+    - patches/0001-use-conda-deps-in-cmake-config.patch
+
+build:
+  number: 13
+  script:
+    - if: unix
+      then: bash "${RECIPE_DIR}/build.sh"
+    - if: win
+      then: call "%RECIPE_DIR%\\build.bat"
+
+requirements:
+  build:
+    - ${{ compiler("cxx") }}
+    - ${{ stdlib("c") }}
+    - cmake
+    - if: not win
+      then: ninja
+  host:
+    - libboost-devel
+    - rapidjson
+    - fmt
+    - libjpeg-turbo
+    - portaudio
+    - xxhash
+    - zlib
+    - qt
+    - qt-main
+    - if: linux
+      then:
+        - libgl-devel
+        - mesalib
+    - libpng
+    - lz4-c
+    - zstd
+    # Dependencies introduced by VRS 1.4.0.
+    - eigen
+    - libopus
+    - ffmpeg ${{ ffmpeg }}.* lgpl_*
+  run:
+    # The installed vrslib CMake config resolves these targets for consumers.
+    - libboost-devel
+    - rapidjson
+    - fmt
+    - libjpeg-turbo
+    - xxhash
+    - zlib
+    - libpng
+    - lz4-c
+    - zstd
+    - eigen
+    - libopus
+    - ffmpeg ${{ ffmpeg }}.*
+  run_exports:
+    - ${{ pin_subpackage("vrs", upper_bound="x.x") }}
+
+tests:
+  - requirements:
+      run:
+        - ${{ compiler("cxx") }}
+        - ${{ stdlib("c") }}
+        - cmake
+        - ninja
+    files:
+      recipe:
+        - run_cmake_test.sh
+        - run_cmake_test.bat
+        - tests/
+    script:
+      - if: unix
+        then: bash run_cmake_test.sh
+      - if: win
+        then: call run_cmake_test.bat
+
+about:
+  homepage: https://github.com/facebookresearch/vrs
+  repository: https://github.com/facebookresearch/vrs
+  summary: A library and binaries for manipulating VRS files
+  description: |
+    VRS is a file format optimized to record & playback streams of sensor data, such as images, audio samples, and any other discrete sensors (IMU, temperature, etc), stored in per-device streams of timestamped records.
+  license: Apache-2.0
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - jeongseok-meta
+    - SeaOtocinclus
