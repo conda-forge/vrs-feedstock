@@ -12,6 +12,7 @@ source:
   git: https://github.com/facebookresearch/vrs.git
   rev: 89d9ec5f1867cb139d06eb7d297ef1206ad35478
   patches:
+    # Remove after a VRS release includes https://github.com/facebookresearch/vrs/pull/263.
     - patches/0001-use-conda-deps-in-cmake-config.patch
 
 build:
