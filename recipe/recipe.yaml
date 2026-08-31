@@ -8,15 +8,20 @@ package:
   version: ${{ version }}
 
 source:
-  # Retain the revision pinned by the v0 recipe rather than changing source content during migration.
-  git: https://github.com/facebookresearch/vrs.git
-  rev: 89d9ec5f1867cb139d06eb7d297ef1206ad35478
-  patches:
-    # Remove after a VRS release includes https://github.com/facebookresearch/vrs/pull/263.
-    - patches/0001-use-conda-deps-in-cmake-config.patch
+  - # Retain the revision pinned by the v0 recipe rather than changing source content during migration.
+    git: https://github.com/facebookresearch/vrs.git
+    rev: 89d9ec5f1867cb139d06eb7d297ef1206ad35478
+    patches:
+      # Remove after a VRS release includes https://github.com/facebookresearch/vrs/pull/263.
+      - patches/0001-use-conda-deps-in-cmake-config.patch
+  # Match the Ocean revision pinned by VRS's FetchContent declaration, but
+  # provide it as a recipe source so builds do not require GitHub access.
+  - url: https://github.com/facebookresearch/ocean/archive/5fca1d27a9f37e868738b6db09a6b1e00723d80f.tar.gz
+    sha256: c47c2bf97909cf35133d865bc59382f1bdb2d2c22c4583671d62d8666130aa43
+    target_directory: ocean
 
 build:
-  number: 13
+  number: 14
   script:
     - if: unix
       then: bash "${RECIPE_DIR}/build.sh"
